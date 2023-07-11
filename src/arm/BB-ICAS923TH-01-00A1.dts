@@ -24,11 +24,11 @@
 	/* state the resources this cape uses */
 	exclusive-use =
 		/* the pin header uses */
-		"P8.37",	/* uart5_txd iC980A_GPS_RX*/
-		"P8.38",	/* uart5_rxd iC980A_GPS_TX*/
+		"P8.37",	/* uart5_txd iC980A_GPS_RX pin 48*/
+		"P8.38",	/* uart5_rxd iC980A_GPS_TX pin 49*/
 		
-		"P9.11",	/* uart4_rxd_mux2 CEL_TX*/
-		"P9.13",	/* uart4_txd_mux2 CEL_RX*/
+		"P9.11",	/* uart4_rxd_mux2 CEL_TX pin 28*/
+		"P9.13",	/* uart4_txd_mux2 CEL_RX pin 29*/
 		
 		"P9.24",	/* uart1_txd BBB_PI_TX*/
 		"P9.26",	/* uart1_rxd BBB_PI_RX*/
@@ -41,8 +41,8 @@
 		"P9.29",	/* spi1_d0 SPI1_MISO*/
 		"P9.30",	/* spi1_d1 SPI1_MOSI*/
 		"P9.31",	/* spi1_sclk SPI1_SCK*/
-        "P9.28",	/* spi1_cs0 SPI1_NSS$10*/
-		"P9.42",	/* spi1_cs1 SPI1_NSS$5*/
+        "P9.28",	/* gpio3_17 spi1_cs0 SPI1_NSS$10*/
+		"P9.42",	/* gpio0_7 spi1_cs1 SPI1_NSS$5*/
 
 		"P9.19",	/* i2c2_scl HOST_SCL*/
 		"P9.20",	/* i2c2_sda HOST_SDA*/
@@ -53,7 +53,7 @@
 		"P9.41",	/* gpio0_20 CEL_WAKE$4*/
 		"P9.12",	/* gpio1_28 GPS_RST$1*/
 		"P9.14",	/* gpio1_18 LR_NOTE$7*/
-		"P9.15",	/* gpio1_16 EN_GPS$8*/
+		"P9.15",	/* gpio1_16 EN_GPS$ 8*/
 		
 		/* the hardware ip uses */
 		"uart5",
@@ -142,7 +142,7 @@
 					BONE_P9_22 0x30 /* AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_OUTPUT, MUX_MODE0)	P9.22 spi0_sclk, INPUT_PULLUP | MODE0 */
 					BONE_P9_21 0x30 /* AM33XX_PADCONF(AM335X_PIN_SPI0_D0, PIN_INPUT, MUX_MODE0)	P9.21 spi0_d0, INPUT_PULLUP | MODE0 */
 					BONE_P9_18 0x10 /* AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_OUTPUT, MUX_MODE0)	P9.18 spi0_d1, OUTPUT_PULLUP | MODE0 */
-					BONE_P9_17 0x10 /* AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_OUTPUT, MUX_MODE0) P9.17 spi0_cs0, OUTPUT_PULLUP | MODE0 */
+					BONE_P9_17 0x10 /* AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_OUTPUT, MUX_MODE0) P9.17 spi0_cs0, OUTPUT_PULLUP gpio0_5 | MODE0 */
 				>;
 			};
 			
@@ -151,8 +151,8 @@
 					BONE_P9_31 0x33	/* P9.31 mcasp0_aclkx.spi1_sclk, INPUT_PULLUP | MODE3 */
 					BONE_P9_29 0x33	/* P9.29 mcasp0_fsx.spi1_d0, INPUT_PULLUP | MODE3 */
 					BONE_P9_30 0x13	/* P9.30 mcasp0_axr0.spi1_d1, OUTPUT_PULLUP | MODE3 */
-					BONE_P9_28 0x13  /* P9.28 mcasp0_ahclkr.spi1_cs0, OUTPUT_PULLUP | MODE3 */
-					BONE_P9_42 0x12	/* P9.42 eCAP0_in_PWM0_out.spi1_cs1 OUTPUT_PULLUP | MODE2 */
+					BONE_P9_28 0x13  /* P9.28 mcasp0_ahclkr.spi1_cs0, OUTPUT_PULLUP gpio3_17 | MODE3 */
+					BONE_P9_42 0x12	/* P9.42 eCAP0_in_PWM0_out.spi1_cs1 OUTPUT_PULLUP gpio0_7 | MODE2 */
 				>;
 			};
 			
@@ -165,34 +165,44 @@
 			
 			bb_uart1_pins: pinmux_bb_uart1_pins {
 				pinctrl-single,pins = <
-					BONE_P9_26 (PIN_INPUT_PULLUP | MUX_MODE0)	/* P9.26 uart1_rxd | MODE0 INPUT */
-					BONE_P9_24 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* P9.24 uart1_txd | MODE0 OUTPUT */
+					BONE_P9_26 0x08 /* (PIN_INPUT_PULLUP | MUX_MODE0)	P9.26 uart1_rxd | MODE0 INPUT */
+					BONE_P9_24 0x28 /* (PIN_OUTPUT_PULLDOWN | MUX_MODE0) P9.24 uart1_txd | MODE0 OUTPUT */
 				>;
 			};
 			
 			bb_uart4_pins: pinmux_bb_uart4_pins {
 				pinctrl-single,pins = <
-					BONE_P9_11 (PIN_INPUT_PULLUP | MUX_MODE6) /* P9.11 gpmc_wait0.uart4_rxd | MODE6 INPUT */
-					BONE_P9_13 (PIN_OUTPUT_PULLDOWN | MUX_MODE6) /* P9.13 gpmc_wpn.uart4_txd | MODE6 OUTPUT */
+					BONE_P9_11 0x0E /* (PIN_INPUT_PULLUP | MUX_MODE6) P9.11 gpmc_wait0.uart4_rxd | MODE6 INPUT */
+					BONE_P9_13 0x2E /* (PIN_OUTPUT_PULLDOWN | MUX_MODE6) P9.13 gpmc_wpn.uart4_txd | MODE6 OUTPUT */
 				>;
 			};
 			
 			bb_uart5_pins: pinmux_bb_uart5_pins {
 				pinctrl-single,pins = <
-					BONE_P8_38 (PIN_INPUT_PULLUP | MUX_MODE4) /* P8.38 lcd_data9.uart5_rxd | MODE4 INPUT */
-					BONE_P8_37 (PIN_OUTPUT_PULLDOWN | MUX_MODE4) /* P8.37 lcd_data8.uart5_txd | MODE4 OUTPUT */
+					BONE_P8_38 0x0C /* (PIN_INPUT_PULLUP | MUX_MODE4) P8.38 lcd_data9.uart5_rxd | MODE4 INPUT */
+					BONE_P8_37 0x2C /* (PIN_OUTPUT_PULLDOWN | MUX_MODE4) P8.37 lcd_data8.uart5_txd | MODE4 OUTPUT */
 				>;
 			};
 			
-			bb_gpio_pins: pinmux_bb_gpio_pins {
+			lgw_control_pins: pinmux_lgw_control_pins {
 				pinctrl-single,pins = <
-					BONE_P9_15 0x37	/* P9.15 gpmc_a0.gpio1_16, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_23 0x37	/* P9.23 gpmc_a1.gpio1_17, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_14 0x37  /* P9.14 gpmc_a2.gpio1_18, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_12 0x37	/* P9.12 gpmc_be1n.gpio1_28, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_27 0x37  /* P9.27 mcasp0_fsr.gpio3_19, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_25 0x37  /* P9.25 mcasp0_ahclkx.gpio3_21, OUTPUT_PULLUP | MODE7 */
-					BONE_P9_41 0x37	/* P9.41 xdma_event_intr1.gpio0_20, OUTPUT_PULLUP | MODE7 */
+					BONE_P9_15 0x27	/* EN_GPS P9.15 gpmc_a0.gpio1_16, OUTPUT_PULLDOWN  | MODE7 gpio1_16 pin 16 */
+			
+					BONE_P9_12 0x37	/* GPS_NRST P9.12 gpmc_be1n.gpio1_28, OUTPUT_PULLUP | MODE7 gpio1_28 pin 30*/
+				
+					BONE_P9_23 0x27	/* iC980A_RST P9.23 gpmc_a1.gpio1_17, OUTPUT_PULLDOWN | MODE7 gpio1_17 pin 17 */
+				
+					BONE_P9_27 0x37 /* CEL_NRST P9.27 mcasp0_fsr.gpio3_19, OUTPUT_PULLUP | MODE7 gpio3_19 pin 105*/
+				
+					BONE_P9_25 0x37 /* CEL_W_DIS P9.25 mcasp0_ahclkx.gpio3_21, OUTPUT_PULLDOWN | MODE7 gpio3_21 pin 107*/
+				>;
+			};
+			
+			lgw_input_pins: pinmux_lgw_input_pins {
+				pinctrl-single,pins = <
+					BONE_P9_14 0x0F /* LR_NOTE P9.14 gpmc_a2.gpio1_18, INPUT | MODE7 gpio1_18 pin 18*/
+				
+					BONE_P9_41 0x17	/* CEL_WAKE P9.41 xdma_event_intr1.gpio0_20, INPUT_PULLUP | MODE7 gpio0_20 pin 109*/
 				>;
 			};
 		};
@@ -204,7 +214,9 @@
 			status = "okay";
 			pinctrl-names = "default";
 			pinctrl-0 = <&bb_spi0_pins>;
-
+			cs-gpios	= <&gpio0 5 0>;
+			num-chipselects = <1>;
+			
 			#address-cells = <1>;
 			#size-cells = <0>;
 
@@ -221,7 +233,7 @@
 				#address-cells = <1>;
 				#size-cells = <0>;
 
-				compatible = "spidev";
+				compatible = "linux,spidev";
 				symlink = "spi/0.0";
 
 				reg = <0>;
@@ -241,7 +253,10 @@
 			status = "okay";
 			pinctrl-names = "default";
 			pinctrl-0 = <&bb_spi1_pins>;
-
+			cs-gpios	= <&gpio3 17 0
+						   &gpio0 7 0>;
+			num-chipselects = <2>;
+			
 			#address-cells = <1>;
 			#size-cells = <0>;
 
@@ -260,7 +275,7 @@
                 #address-cells = <1>;
                 #size-cells = <0>;
 				
-                compatible = "spidev";
+                compatible = "linux,spidev";
 				symlink = "spi/1.0";
 				
                 reg = <0>;
@@ -276,14 +291,11 @@
 
 				reg = <1>;
 				spi-max-frequency = <16000000>;
-				spi-cpol;
                 spi-cpha;
 			};
 		};
 	};
-	
-	
-	
+		
 	fragment@5 {
 		target = <&i2c2>;	/* i2c2 is numbered correctly */
 		__overlay__ {
@@ -327,6 +339,80 @@
 			status = "okay";
 			pinctrl-names = "default";
 			pinctrl-0 = <&bb_uart5_pins>;
+		};
+	};
+	
+	fragment@9 {
+		target = <&ocp>;
+		__overlay__ {
+			/* avoid stupid warning */
+			#address-cells = <1>;
+			#size-cells = <1>;
+			
+			keys {
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&lgw_input_pins>;
+
+				compatible = "gpio-keys";
+
+				lora_note {
+					debounce_interval = <5>;
+					linux,code = <18>;
+					label               = "lora_note";
+					gpios               = <&gpio1 18 GPIO_ACTIVE_LOW>;
+					gpio-key;
+					autorepeat;
+				};
+				
+				cel_wakeup {
+					debounce_interval = <5>;
+					linux,code = <109>;
+					label               = "cel_wakeup";
+					gpios               = <&gpio0 20 GPIO_ACTIVE_LOW>;
+					gpio-key,wakeup;
+					autorepeat;
+				};
+			};
+			
+			leds {
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&lgw_control_pins>;
+			
+				compatible = "gpio-leds";
+				
+				gps_enable {
+					label = "gps_enable";
+					gpios = <&gpio1 16 GPIO_ACTIVE_HIGH>;
+					default-state = "keep";
+				};				
+				
+				gps_reset {
+					label = "gps_reset";
+					gpios = <&gpio1 28 GPIO_ACTIVE_LOW>;
+					default-state = "keep";
+				};
+			
+				lora_reset {
+					label = "lora_reset";
+					gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
+					default-state = "keep";
+				};
+				
+				cel_reset {
+					label = "cellular_reset";
+					gpios = <&gpio3 19 GPIO_ACTIVE_LOW>;
+					default-state = "keep";
+				};
+				
+				cel_w_disable {
+					label = "cellular_w_disable";
+					gpios = <&gpio3 21 GPIO_ACTIVE_LOW>;
+					default-state = "keep";
+				};
+			};
+			
 		};
 	};
 };
